@@ -2,9 +2,9 @@ package com.example.handlehttp.Controller;
 
 import com.example.handlehttp.Model.DonHang;
 import com.example.handlehttp.Service.DonHangService;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,19 +13,22 @@ import java.time.LocalTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/donHang")
-public class DonHangController {
+@RequestMapping("/donHang1")
+public class DonHang1Controller {
     private final DonHangService donHangService;
-    private final ApplicationContext applicationContext;
 
-    public DonHangController(DonHangService donHangService, ApplicationContext applicationContext) {
+     @Autowired
+    @Qualifier("getDonHang")
+     DonHang donHang;
+
+    public DonHang1Controller(DonHangService donHangService) {
         this.donHangService = donHangService;
-        this.applicationContext = applicationContext;
     }
 
     @GetMapping("")
-    ResponseEntity <List<DonHang>> findAll() {
-        return null;
+    ResponseEntity<Object> findAll() {
+
+        return ResponseEntity.ok(donHang);
     }
 
     @GetMapping("/param")

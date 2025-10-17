@@ -1,7 +1,7 @@
 package com.example.handlehttp.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -16,9 +16,9 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "DonHang")
+@Table(name = "DonHang", uniqueConstraints = @UniqueConstraint(columnNames = {"maDon", "moTa"}))
 //@JsonIgnoreProperties(value = "maKH", ignoreUnknown = true)
-@JsonIgnoreProperties(value = {"ngayDat", "gioDat", "moTa"}, allowGetters = false, allowSetters = true)
+@JsonIgnoreProperties(value = {"ngayDat", "gioDat", "moTa"}, allowGetters = true, allowSetters = true)
 public class DonHang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,7 @@ public class DonHang {
     private Integer id;
 
     @Size(max = 8)
-    @Column(name = "MaDon", length = 8)
+    @Column(name = "MaDon", length = 8, unique = true)
     private String maDon;
 
     @Size(max = 200)
@@ -44,7 +44,7 @@ public class DonHang {
     @Column(name = "GioDat")
     private LocalTime gioDat;
 
-//    @JsonIgnore
+    //    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "MaKH")
     private KhachHang maKH;

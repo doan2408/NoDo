@@ -1,12 +1,10 @@
 package com.example.handlehttp.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
+
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -40,7 +38,7 @@ public class KhachHang {
 
     @Size(max = 100)
     @Column(name = "TenKH", length = 100)
-    private String tenKH;
+    private String tenkh;
 
     @Lob
     @Column(name = "GhiChu")
@@ -69,11 +67,18 @@ public class KhachHang {
     @Column(name = "GioTao")
     private LocalTime gioTao;
 
-    @JsonIgnoreProperties("ngayTao")
+//    @JsonIgnoreProperties("ngayTao")
     @Column(name = "NgayTao")
     private Instant ngayTao;
 
-//    @JsonIgnore
+    @Transient
+    private double totalPrice;
+
+//    public double getTotalPrice() {
+//        return soDu + diem;
+//    }
+
+    //    @JsonIgnore
     @OneToMany(mappedBy = "maKH")
     private Set<DonHang> donHangs = new LinkedHashSet<>();
 
@@ -118,11 +123,11 @@ public class KhachHang {
     }
 
     public @Size(max = 100) String getTenKH() {
-        return tenKH;
+        return tenkh;
     }
 
     public void setTenKH(@Size(max = 100) String tenKH) {
-        this.tenKH = tenKH;
+        this.tenkh = tenKH;
     }
 
     public String getGhiChu() {
