@@ -53,56 +53,64 @@ public class KhachHangService {
 //        return khachHangRepository.searchKhachHang(name, soDu, tyLe, pageable);
 //    }
 //
-//    public Page<KhachHangResponse> searchDto(String name, Double soDu, BigDecimal tyLe, Pageable pageable) {
-//        Page<KhachHangResponse> pageResult = khachHangRepository.dto(name, soDu, tyLe, pageable);
-//        return pageResult;
-//    }
+    public Page<KhachHangResponse> searchDto(String name, Double soDu, BigDecimal tyLe, Pageable pageable) {
+        Page<KhachHangResponse> pageResult = khachHangRepository.dto(name, soDu, tyLe, pageable);
+        return pageResult;
+    }
+
+    public Page<KhachHangProjection> timKiemProjection(String name, Double soDu, BigDecimal tyLe, Pageable pageable) {
+        Page<KhachHangProjection> pageResult = khachHangRepository.projection(name, soDu, tyLe, pageable);
+        return pageResult;
+    }
+
+    public Page<Map<String, Object>> timKiemNhieuDieuKienSQL(String name, Double soDu, BigDecimal tyLe, Pageable pageable) {
+        Page<Map<String, Object>> pageResult = khachHangRepository.timKiemNhieuDieuKienSQL(name, soDu, tyLe, pageable);
+        return pageResult;
+    }
 //
-//    public Page<KhachHangProjection> timKiemProjection(String name, Double soDu, BigDecimal tyLe, Pageable pageable) {
-//        Page<KhachHangProjection> pageResult = khachHangRepository.projection(name, soDu, tyLe, pageable);
-//        return pageResult;
-//    }
 //
-//    public Page<Map<String, Object>> timKiemNhieuDieuKienSQL(String name, Double soDu, BigDecimal tyLe, Pageable pageable) {
-//        Page<Map<String, Object>> pageResult = khachHangRepository.timKiemNhieuDieuKienSQL(name, soDu, tyLe, pageable);
-//        return pageResult;
-//    }
-//
-//
-//    // criteria
-//    public Page<KhachHangResponse> criteria(Double minSoDu, Double maxSoDu, BigDecimal tyLe, Pageable pageable) {
-//        CriteriaBuilder cb = em.getCriteriaBuilder();
-//        CriteriaQuery<Tuple> cq = cb.createTupleQuery();
-//        Root<KhachHang> root = cq.from(KhachHang.class);
-//
-//        List<Predicate> predicates = new ArrayList<>();
-//        if (minSoDu != null) predicates.add(cb.ge(root.get("soDu"), minSoDu));
-//        if (maxSoDu != null) predicates.add(cb.le(root.get("soDu"), maxSoDu));
-//        if (tyLe != null) predicates.add(cb.equal(root.get("tyLe"), tyLe));
-//
-//        cq.multiselect(root.get("soDu").alias("soDu"), root.get("tyLe").alias("tyLe"))
-//                .where(predicates.toArray(new Predicate[0]));
-//
-//        TypedQuery<Tuple> query = em.createQuery(cq);
-//        query.setFirstResult((int) pageable.getOffset());
-//        query.setMaxResults(pageable.getPageSize());
-//
-//        List<KhachHangResponse> list = query.getResultList().stream()
-//                .map(t -> new KhachHangResponse(
-//                        t.get("soDu", Double.class),
-//                        t.get("tyLe", BigDecimal.class)
-//                ))
-//                .toList();
-//
-//        return new PageImpl<>(list, pageable, list.size());
-//    }
-//
+    // criteria
+    public Page<KhachHangResponse> criteria(Double minSoDu, Double maxSoDu, BigDecimal tyLe, Pageable pageable) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Tuple> cq = cb.createTupleQuery();
+        Root<KhachHang> root = cq.from(KhachHang.class);
+
+        List<Predicate> predicates = new ArrayList<>();
+        if (minSoDu != null) predicates.add(cb.ge(root.get("soDu"), minSoDu));
+        if (maxSoDu != null) predicates.add(cb.le(root.get("soDu"), maxSoDu));
+        if (tyLe != null) predicates.add(cb.equal(root.get("tyLe"), tyLe));
+
+        cq.multiselect(root.get("soDu").alias("soDu"), root.get("tyLe").alias("tyLe"))
+                .where(predicates.toArray(new Predicate[0]));
+
+        TypedQuery<Tuple> query = em.createQuery(cq);
+        query.setFirstResult((int) pageable.getOffset());
+        query.setMaxResults(pageable.getPageSize());
+
+        List<KhachHangResponse> list = query.getResultList().stream()
+                .map(t -> new KhachHangResponse(
+                        t.get("soDu", Double.class),
+                        t.get("tyLe", BigDecimal.class)
+                ))
+                .toList();
+
+        return new PageImpl<>(list, pageable, list.size());
+    }
+
 //    public List<Object[]> findTenVaLuong() {
 //        return khachHangRepository.findTenVaLuong();
 //    }
 
-    public List<KhachHang> findByName(String name) {
-        return khachHangRepository.findByTenkh(name);
+    public Page<KhachHang> findByName(String name, Pageable pageable) {
+        return khachHangRepository.findByName(name, pageable);
+    }
+
+    public List<KhachHang> getName(String name) {
+        return khachHangRepository.getTen(name);
+    }
+
+    public long count(String name) {
+        return khachHangRepository.countByName(name);
     }
 
 

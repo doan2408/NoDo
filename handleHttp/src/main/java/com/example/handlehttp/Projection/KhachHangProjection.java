@@ -5,4 +5,5 @@ import java.math.BigDecimal;
 public interface KhachHangProjection {
     Double getSoDu();
     BigDecimal getTyLe();
+    String getTenkh();
 }

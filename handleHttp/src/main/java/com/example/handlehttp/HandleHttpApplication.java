@@ -18,22 +18,22 @@ public class HandleHttpApplication {
         SpringApplication.run(HandleHttpApplication.class, args);
 
     }
-    @Scope("prototype")
-    @Bean
-    @Order(3)
-    public DonHang getDonHang() {
-        System.out.println("hihi");
-        DonHang donHang = new DonHang();
-        donHang.setMaDon("tesst");
-        return donHang;
-    }
-
-    @Bean("3")
-    @Order(1)
-    public DonHang getDonHang2(DonHang donHang) {
-
-        System.out.println("hihi");
-        donHang.setMaDon("tesst222");
-        return donHang;
-    }
+//    @Scope("prototype")
+//    @Bean
+//    @Order(3)
+//    public DonHang getDonHang() {
+//        System.out.println("hihi");
+//        DonHang donHang = new DonHang();
+//        donHang.setMaDon("tesst");
+//        return donHang;
+//    }
+//
+//    @Bean("3")
+//    @Order(1)
+//    public DonHang getDonHang2(DonHang donHang) {
+//
+//        System.out.println("hihi");
+//        donHang.setMaDon("tesst222");
+//        return donHang;
+//    }
 }

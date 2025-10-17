@@ -1,5 +1,6 @@
 package com.example.handlehttp.Dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ import java.time.LocalTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class KhachHangResponse {
     private Integer id;
 
@@ -25,7 +27,7 @@ public class KhachHangResponse {
 
     private String maCode;
 
-    private String tenKH;
+    private String tenKh;
 
     private String ghiChu;
 

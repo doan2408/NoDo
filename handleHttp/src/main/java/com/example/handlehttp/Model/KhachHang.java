@@ -1,5 +1,6 @@
 package com.example.handlehttp.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
@@ -13,9 +14,18 @@ import java.time.LocalTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-
 @Entity
 @Table(name = "KhachHang")
+@NamedQuery(
+        name = "KhachHang.findByName",
+        query = "select kh from KhachHang kh where " +
+                "kh.tenkh = :tenKh"
+)
+
+@NamedQuery(
+        name = "KhachHang.countByName",  // Tên truy vấn đếm
+        query = "SELECT COUNT(k) FROM KhachHang k WHERE k.tenkh LIKE :name"
+)
 //@JsonIgnoreProperties({"ngayTao", "donHangs"})
 public class KhachHang {
     @Id
@@ -78,8 +88,8 @@ public class KhachHang {
 //        return soDu + diem;
 //    }
 
-    //    @JsonIgnore
-    @OneToMany(mappedBy = "maKH")
+        @JsonIgnore
+    @OneToMany(mappedBy = "maKH", fetch = FetchType.LAZY)
     private Set<DonHang> donHangs = new LinkedHashSet<>();
 
     public Integer getId() {
