@@ -8,6 +8,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Nationalized;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -39,6 +40,6 @@ public class CommentMapped {
     @NotNull
     @ColumnDefault("getdate()")
     @Column(name = "CreatedAt", nullable = false)
-    private Instant createdAt;
+    private LocalDateTime createdAt;
 
 }

@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -26,7 +27,7 @@ public class User {
     @Column(name = "UserName", nullable = false, length = 100)
     private String userName;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<CommentIdclass> commentIdclasses = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")

@@ -8,6 +8,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Nationalized;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,10 +16,10 @@ import java.time.Instant;
 @Table(name = "Comment_IdClass")
 @IdClass(CommentId2.class)
 public class CommentIdclass {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CommentId", nullable = false)
-    private Integer id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "CommentId", nullable = false)
+//    private Integer id;
 
     @Id
     private int postId;
@@ -35,7 +36,7 @@ public class CommentIdclass {
     @NotNull
     @ColumnDefault("getdate()")
     @Column(name = "CreatedAt", nullable = false)
-    private Instant createdAt;
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "postId", insertable = false, updatable = false)
