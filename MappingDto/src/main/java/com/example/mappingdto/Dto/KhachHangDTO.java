@@ -35,5 +35,12 @@ public class KhachHangDTO {
 
     // example: if you want to map DonHang ids or DTOs:
     private Set<DonHangDTO> donHangs;
+
+    public KhachHangDTO (Long makhLon, Short maKhNho, Short maKhNhoLon, String tenKh) {
+        this.makhLon = makhLon;
+        this.makhNho = maKhNho;
+        this.makhNhohon = maKhNhoLon;
+        this.tenKH = tenKh;
+    }
 }
 

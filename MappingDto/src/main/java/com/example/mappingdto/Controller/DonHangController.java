@@ -1,6 +1,9 @@
 package com.example.mappingdto.Controller;
 
 import com.example.mappingdto.Service.DonHangService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +49,25 @@ public class DonHangController {
     @GetMapping("/search")
     ResponseEntity<?> searchMaDon(@RequestParam("maDon") String maDon) {
         return ResponseEntity.ok(donHangService.search(maDon));
+    }
+
+    @GetMapping("/search1")
+    ResponseEntity<?> searchMaDon1(@RequestParam(value = "maDon", required = false) String maDon,
+                                   @RequestParam(value = "page", defaultValue = "0") int page,
+                                   @RequestParam(value = "size", defaultValue = "2") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(donHangService.searchDto(maDon, pageable));
+    }
+
+    @GetMapping("/search2")
+    ResponseEntity<?> searchMaDon2(@RequestParam(value = "maDon", required = false) String maDon,
+                                   @RequestParam(value = "moTa", required = false) String moTa,
+                                   @RequestParam(value = "page", defaultValue = "0") int page,
+                                   @RequestParam(value = "size", defaultValue = "2") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(donHangService.searchDtoJpql(maDon, moTa, pageable));
     }
 
 }

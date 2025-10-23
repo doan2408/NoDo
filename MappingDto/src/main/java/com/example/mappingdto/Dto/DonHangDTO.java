@@ -1,16 +1,20 @@
 package com.example.mappingdto.Dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.NonNullFields;
 
 import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DonHangDTO {
     private Integer id;
 
@@ -24,8 +28,16 @@ public class DonHangDTO {
 
     private LocalTime gioDat;
 
+    private String tenKh;
+
     // foreign key
     private Integer maKHId;
+
+    public DonHangDTO(String maDon, String moTa, String tenKh) {
+        this.maDon = maDon;
+        this.moTa = moTa;
+        this.tenKh = tenKh;
+    }
 
     public static class Builder {
         private Integer id;
@@ -35,6 +47,7 @@ public class DonHangDTO {
         private OffsetDateTime ngayDat;
         private LocalTime gioDat;
         private Integer maKHId;
+        private String tenKh;
 
         public Builder id(Integer id) {
             this.id = id;
@@ -71,9 +84,14 @@ public class DonHangDTO {
             return this;
         }
 
+        public Builder tenKh(String tenKh) {
+            this.tenKh = tenKh;
+            return this;
+        }
+
         // build ra đối tượng thật
         public DonHangDTO build() {
-            return new DonHangDTO(id, maDon, moTa, tongTien, ngayDat, gioDat, maKHId);
+            return new DonHangDTO(id, maDon, moTa, tongTien, ngayDat, gioDat, tenKh, maKHId);
         }
     }
 

@@ -1,7 +1,9 @@
 package com.example.mappingdto.Controller;
 
 import com.example.mappingdto.Dto.KhachHangDTO;
+import com.example.mappingdto.Enum.Status;
 import com.example.mappingdto.Service.KhachHangService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,4 +41,24 @@ public class KhachHangController {
         return ResponseEntity.ok(khachHangService.addKhachHang(dto));
     }
 
+    //
+    @GetMapping
+    ResponseEntity<?> getAllKhachHang() {
+        return ResponseEntity.ok(khachHangService.getKhachHangList());
+    }
+
+    @PostMapping("/entity")
+    ResponseEntity<?> persistKhachHangWithDonHang() {
+        khachHangService.persistKhachHangWithDonHang();
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/entity/{khId}/{dhId}")
+    ResponseEntity<?> deleteKhachHangWithDonHang(
+            @PathVariable int khId,
+            @PathVariable int dhId
+    ) {
+        khachHangService.removeDonHangFromKhachHang(khId, dhId);
+        return ResponseEntity.ok("xóa thành công");
+    }
 }

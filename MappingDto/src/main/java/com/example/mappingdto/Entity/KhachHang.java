@@ -4,6 +4,7 @@ import com.example.mappingdto.Enum.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Nationalized;
 
 import java.math.BigDecimal;
@@ -16,6 +17,10 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@NamedEntityGraph(
+        name = "KhachHang.donHangs",
+        attributeNodes = {@NamedAttributeNode("donHangs")}
+)
 public class KhachHang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -68,13 +73,29 @@ public class KhachHang {
 
     @Column(name = "MaKH_GioiThieu")
     private Integer makhGioithieu;
-    @OneToMany(mappedBy = "maKH", targetEntity = DonHang.class)
+
+    @OneToMany(mappedBy = "maKH",
+            targetEntity = DonHang.class,
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private Set<DonHang> donHangs = new LinkedHashSet<>();
 
-/*
- TODO [Reverse Engineering] create field to map the 'CapNhat' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @Column(name = "CapNhat", columnDefinition = "timestamp not null")
-    private Object capNhat;
-*/
+    /*
+     TODO [Reverse Engineering] create field to map the 'CapNhat' column
+     Available actions: Define target Java type | Uncomment as is | Remove column mapping
+        @Column(name = "CapNhat", columnDefinition = "timestamp not null")
+        private Object capNhat;
+    */
+
+    public void addDonHang(DonHang donHang) {
+        donHangs.add(donHang);
+        donHang.setMaKH(this);
+    }
+
+    public void removeDonHang(DonHang donHang) {
+        donHangs.remove(donHang);
+        donHang.setMaKH(null);
+    }
 }

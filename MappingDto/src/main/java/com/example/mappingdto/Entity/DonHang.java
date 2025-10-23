@@ -12,6 +12,10 @@ import java.time.OffsetDateTime;
 @Getter
 @Setter
 @Entity
+@NamedEntityGraph(
+        name = "Customer.orders",
+        attributeNodes = @NamedAttributeNode("maKH")
+)
 public class DonHang {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
