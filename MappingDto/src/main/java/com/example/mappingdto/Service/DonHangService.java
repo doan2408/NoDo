@@ -11,11 +11,9 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +30,8 @@ public class DonHangService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public DonHangService(DonHangRepository donHangRepository, DonHangMapper donHangMapper,
+    public DonHangService(DonHangRepository donHangRepository,
+                          DonHangMapper donHangMapper,
                           ModelMapper modelMapper,
                           Converter<DonHang, DonHangDTO> toDtoConverter) {
         this.donHangRepository = donHangRepository;
@@ -99,9 +98,16 @@ public class DonHangService {
     }
 
     // mapStruct
+//    public List<DonHangDTO> mapStruct() {
+//        List<DonHang> entities = donHangRepository.findAll();
+//        return donHangMapper.toDto(entities);
+//    }
+
     public List<DonHangDTO> mapStruct() {
         List<DonHang> entities = donHangRepository.findAll();
-        return donHangMapper.toDto(entities);
+        return entities.stream()
+                .map(entity -> donHangMapper.toDtoWithList(entity, entities))
+                .toList();
     }
 
     // manual
@@ -292,5 +298,8 @@ public class DonHangService {
 
         return new PageImpl<>(dtos, pageable, total);
     }
+
+
+
 
 }

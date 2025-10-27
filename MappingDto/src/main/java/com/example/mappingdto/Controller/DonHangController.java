@@ -1,9 +1,11 @@
 package com.example.mappingdto.Controller;
 
 import com.example.mappingdto.Service.DonHangService;
+import com.example.mappingdto.Service.KhachHangService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/donHang")
 public class DonHangController {
     private final DonHangService donHangService;
+    private final KhachHangService khachHangService;
 
-    public DonHangController(DonHangService donHangService) {
+    public DonHangController(DonHangService donHangService, KhachHangService khachHangService) {
         this.donHangService = donHangService;
+        this.khachHangService = khachHangService;
     }
 
     @GetMapping("/manual")
@@ -68,6 +72,13 @@ public class DonHangController {
     ) {
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(donHangService.searchDtoJpql(maDon, moTa, pageable));
+    }
+
+
+    @GetMapping("/hehe")
+    ResponseEntity<?> hehe() {
+//        khachHangService.testLazyInitializationException1();
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
 }

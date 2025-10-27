@@ -21,6 +21,10 @@ public interface KhachHangMapper {
 
     List<KhachHang> toDoEntityList(List<KhachHangDTO> entities);
 
+//    @Mapping(target = "donHangs", ignore = true)
+//    KhachHangDTO toDtoa(KhachHang entity);
+//    List<KhachHangDTO> toDoLista(List<KhachHang> entities);
+
     // custom auto transfer IdKhachHang -> KhachHang Object
 //    default KhachHang toKhachHang(Integer id) {
 //        if(id == null) return null;

@@ -26,6 +26,11 @@ public class KhachHangController {
         return ResponseEntity.ok(khachHangService.mapStruct());
     }
 
+    @GetMapping("/mapStruct1/{id}")
+    ResponseEntity<?> mapStruct1(@PathVariable Integer id) {
+        return ResponseEntity.ok(khachHangService.mapStruct1(id));
+    }
+
     @GetMapping("/modelMapper")
     ResponseEntity<?> modelMapper() {
         return ResponseEntity.ok(khachHangService.modelMapper());
@@ -60,5 +65,10 @@ public class KhachHangController {
     ) {
         khachHangService.removeDonHangFromKhachHang(khId, dhId);
         return ResponseEntity.ok("xóa thành công");
+    }
+
+    @GetMapping("/hehe")
+    ResponseEntity<?> getKhachHangById() {
+        return ResponseEntity.ok(khachHangService.getKhachHang());
     }
 }

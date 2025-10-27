@@ -22,7 +22,7 @@ public class DonHang {
     @Column(name = "MaDH", nullable = false)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "MaKH", nullable = false)
     private KhachHang maKH;
 
