@@ -1,4 +1,4 @@
-package com.example.mappingdto.Dto;
+package com.example.validate.Dto.Response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
 @AllArgsConstructor
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class DonHangDTO {
+public class DonHangResponse {
     private Integer id;
 
     private String maDon;
@@ -32,7 +32,7 @@ public class DonHangDTO {
     // foreign key
     private Integer maKHId;
 
-    public DonHangDTO(String maDon, String moTa, String tenKh) {
+    public DonHangResponse(String maDon, String moTa, String tenKh) {
         this.maDon = maDon;
         this.moTa = moTa;
         this.tenKh = tenKh;
@@ -89,8 +89,8 @@ public class DonHangDTO {
         }
 
         // build ra đối tượng thật
-        public DonHangDTO build() {
-            return new DonHangDTO(id, maDon, moTa, tongTien, ngayDat, gioDat, tenKh, maKHId);
+        public DonHangResponse build() {
+            return new DonHangResponse(id, maDon, moTa, tongTien, ngayDat, gioDat, tenKh, maKHId);
         }
     }
 

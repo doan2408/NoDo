@@ -1,8 +1,12 @@
-package com.example.mappingdto.Dto;
+package com.example.validate.Dto.Response;
 
 
-import com.example.mappingdto.Enum.Status;
-import lombok.*;
+import com.example.validate.Enum.Status;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class KhachHangDTO {
+public class KhachHangRequest {
     private Integer id;
     private Long makhLon;
     private Short makhNho;
@@ -32,9 +36,9 @@ public class KhachHangDTO {
     private Integer makhGioithieu;
 
     // example: if you want to map DonHang ids or DTOs:
-    private Set<DonHangDTO> donHangs;
+    private Set<DonHangResponse> donHangs;
 
-    public KhachHangDTO(Long makhLon, Short maKhNho, Short maKhNhoLon, String tenKh) {
+    public KhachHangRequest(Long makhLon, Short maKhNho, Short maKhNhoLon, String tenKh) {
         this.makhLon = makhLon;
         this.makhNho = maKhNho;
         this.makhNhohon = maKhNhoLon;
